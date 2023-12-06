@@ -1,16 +1,67 @@
-export const App = () => {
+import React from "react"
+import { StyledTitle } from "./ContactForm/ContactForm.styled"
+import { ContactFormStyled } from "./ContactForm/ContactFormStyled";
+import { Filter } from "./Filter/Filter";
+import { ContactList } from "./ContactList/ContactList";
+import { nanoid } from "nanoid";
+
+export class App extends React.Component {
+  state = {
+    contacts: [],
+    filter: '',
+  }
+  
+  handleAddContact = ({ name, number }) => {
+    if (this.state.contacts.find(contact => contact.name === name)) {
+      window.alert(`${name} is already in contacts`)
+      return
+    }
+    const newContact = { id: nanoid(), name, number, }
+    
+    this.setState((prevState) => ({
+      contacts: [...prevState.contacts, newContact]
+    }))
+  }
+
+  handleChangeFilter = e => {
+    this.setState({ filter: e.target.value })
+	}
+
+  handleDeleteContact = id => {
+		this.setState(prevState => ({ contacts: prevState.contacts.filter(user => user.id !== id) }))
+  }
+  
+  getFilteredData = () => {
+		return this.state.contacts
+			.filter( contact => contact.name.toLowerCase().includes(this.state.filter.toLowerCase()) 
+			)
+	}
+  
+  render() {
+    
   return (
     <div
       style={{
         height: '100vh',
         display: 'flex',
-        justifyContent: 'center',
+        flexDirection: 'column',
+        // justifyContent: 'center',
         alignItems: 'center',
-        fontSize: 40,
+        fontSize: 20,
         color: '#010101'
       }}
     >
-      React homework template
+
+      <StyledTitle>Phonebook</StyledTitle>
+      <ContactFormStyled handleAddContact={this.handleAddContact}
+       />
+
+      <h2>Contacts</h2>
+      <Filter handleChangeFilter={ this.handleChangeFilter} />
+      <ContactList
+        contacts={this.getFilteredData()}
+        onDeleteContact={this.handleDeleteContact} />
+      
     </div>
-  );
+  )}
 };
