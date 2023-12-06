@@ -1,9 +1,9 @@
 import React from "react"
 import { StyledTitle } from "./ContactForm/ContactForm.styled"
-import { ContactFormStyled } from "./ContactForm/ContactFormStyled";
 import { Filter } from "./Filter/Filter";
 import { ContactList } from "./ContactList/ContactList";
 import { nanoid } from "nanoid";
+import { ContactForm } from "./ContactForm/ContactForm";
 
 export class App extends React.Component {
   state = {
@@ -45,7 +45,6 @@ export class App extends React.Component {
         height: '100vh',
         display: 'flex',
         flexDirection: 'column',
-        // justifyContent: 'center',
         alignItems: 'center',
         fontSize: 20,
         color: '#010101'
@@ -53,7 +52,7 @@ export class App extends React.Component {
     >
 
       <StyledTitle>Phonebook</StyledTitle>
-      <ContactFormStyled handleAddContact={this.handleAddContact}
+      <ContactForm handleAddContact={this.handleAddContact}
        />
 
       <h2>Contacts</h2>

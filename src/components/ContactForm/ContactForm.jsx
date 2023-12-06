@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyledButton, StyledForm, StyledInput, StyledLabel } from './ContactForm.styled'
 
-export class ContactFormStyled extends React.Component {
+export class ContactForm extends React.Component {
   state = {
     name: '',
     number:''
